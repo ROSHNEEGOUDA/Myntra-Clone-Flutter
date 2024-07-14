@@ -46,6 +46,19 @@ class Home extends StatelessWidget {
                     ),
                     IconButton(
                       icon: Icon(
+                        Icons.tune, // Use the 'tune' icon for advanced search
+                        color: Colors.black,
+                      ),
+                      onPressed: () {
+                        // Show advanced search form
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) => TuneForm(),
+                        );
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
                         Icons.notifications,
                         color: Colors.black,
                       ),
@@ -178,8 +191,8 @@ class Home extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  buildOfferCard(context, seventy_off, under_399, buy_1_get_1,
-                      sixty_off),
+                  buildOfferCard(
+                      context, seventy_off, under_399, buy_1_get_1, sixty_off),
                   SizedBox(
                     height: 15,
                   ),
@@ -327,6 +340,252 @@ class Home extends StatelessWidget {
                 ),
               ],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TuneForm extends StatefulWidget {
+  @override
+  _TuneFormState createState() => _TuneFormState();
+}
+
+class _TuneFormState extends State<TuneForm> {
+  String? selectedGender;
+  String? selectedBodyType;
+  String? selectedBodyShape;
+  String? selectedClothingType;
+  String? selectedDressType;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Choose Gender:',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: RadioListTile<String>(
+                    title: Text('Male'),
+                    value: 'male',
+                    groupValue: selectedGender,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedGender = value;
+                        selectedBodyType = null;
+                        selectedClothingType = 'traditional'; // Default for male
+                        selectedDressType = null; // Reset dress type
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: RadioListTile<String>(
+                    title: Text('Female'),
+                    value: 'female',
+                    groupValue: selectedGender,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedGender = value;
+                        selectedClothingType = null;
+                        selectedBodyType = 'busty'; // Default for female
+                        selectedBodyShape = 'Hourglass'; // Default body shape for female
+                        selectedDressType = 'crop top'; // Reset dress type
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            if (selectedGender == 'female')
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    'Choose Body Type:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    value: selectedBodyType,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedBodyType = value;
+                      });
+                    },
+                    items: <String?>['busty', 'broad shoulders']
+                        .map<DropdownMenuItem<String>>(
+                          (String? value) => DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value ?? ''),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Choose Body Shape:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    value: selectedBodyShape,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedBodyShape = value;
+                      });
+                    },
+                    items: <String?>[
+                      'Rectangular',
+                      'Hourglass',
+                      'Pear Shaped',
+                      'Apple Shaped',
+                      // Ensure each value is unique
+                    ]
+                        .map<DropdownMenuItem<String>>(
+                          (String? value) => DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value ?? ''),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Choose Dress Type:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    value: selectedDressType,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedDressType = value;
+                      });
+                    },
+                    items: <String?>[
+                      'crop top',
+                      'party wear',
+                      'kurti',
+                      // Add more options as needed
+                    ]
+                        .map<DropdownMenuItem<String>>(
+                          (String? value) => DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value ?? ''),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ],
+              ),
+            if (selectedGender == 'male')
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    'Choose Clothing Type:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  SizedBox(height: 10),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    value: selectedClothingType,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedClothingType = value;
+                      });
+                    },
+                    items: <String?>[
+                      'traditional',
+                      'street wear',
+                      'sports',
+                      'vintage'
+                    ]
+                        .map<DropdownMenuItem<String>>(
+                          (String? value) => DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value ?? ''),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ],
+              ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle form submission
+                  // You can add your logic here to process the selected options
+                  Navigator.pop(context); // Close the form
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text('Apply'),
+              ),
+            ),
+            SizedBox(height: 20), // Add additional spacing at the bottom
           ],
         ),
       ),
