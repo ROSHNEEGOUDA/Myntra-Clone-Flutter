@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_myntra_clone/common_widgets/cached_image.dart';
 import 'package:flutter_myntra_clone/data_provider/product_dto.dart';
-import 'package:flutter_myntra_clone/screens/products/product_details.dart';
+import 'package:flutter_myntra_clone/screens/Advance product/advance_product_detail.dart';
 
 class Product extends StatefulWidget {
   final ProductDto productDto;

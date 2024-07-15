@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_myntra_clone/screens/home_screen.dart';
 import 'package:flutter_myntra_clone/screens/login/login.dart';
 import 'package:flutter_myntra_clone/screens/login/otp.dart';
-import 'package:flutter_myntra_clone/screens/products/product_details.dart';
+import 'package:flutter_myntra_clone/screens/Advance product/advance_product_detail.dart';
 import 'package:flutter_myntra_clone/screens/products/product_list.dart';
 
 void main() {

@@ -3,6 +3,7 @@ import 'package:flutter_myntra_clone/common_widgets/cached_image.dart';
 import 'package:flutter_myntra_clone/data_provider/home_data.dart';
 import 'package:flutter_myntra_clone/utils/asset_constants.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_myntra_clone/screens/Advance product/advance_product_list.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -396,7 +397,8 @@ class _TuneFormState extends State<TuneForm> {
                       setState(() {
                         selectedGender = value;
                         selectedBodyType = null;
-                        selectedClothingType = 'traditional'; // Default for male
+                        selectedClothingType =
+                            'traditional'; // Default for male
                         selectedDressType = null; // Reset dress type
                       });
                     },
@@ -412,7 +414,8 @@ class _TuneFormState extends State<TuneForm> {
                         selectedGender = value;
                         selectedClothingType = null;
                         selectedBodyType = 'busty'; // Default for female
-                        selectedBodyShape = 'Hourglass'; // Default body shape for female
+                        selectedBodyShape =
+                            'Hourglass'; // Default body shape for female
                         selectedDressType = 'crop top'; // Reset dress type
                       });
                     },
@@ -573,8 +576,19 @@ class _TuneFormState extends State<TuneForm> {
               child: ElevatedButton(
                 onPressed: () {
                   // Handle form submission
-                  // You can add your logic here to process the selected options
                   Navigator.pop(context); // Close the form
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdvanceProductDetail(
+                        gender: selectedGender,
+                        bodyType: selectedBodyType,
+                        bodyShape: selectedBodyShape,
+                        clothingType: selectedClothingType,
+                        dressType: selectedDressType,
+                      ),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
